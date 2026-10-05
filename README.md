@@ -30,50 +30,9 @@ examples use `/datasets`, `/models`, and `/indexes`. Retrieval expects dated
 shards containing `faiss.index`, `texts.parquet`, and `metadata.json`, with
 `day_offsets` in monthly shard metadata.
 
-## Environment
-
-| Purpose | Docker image |
-| --- | --- |
-| Training | `liqinye27/alpha-forecast-efa:20260718` |
-| Embedding and GPU search dependencies | `liqinye27/alpha-embedder-faiss-gpu:20260708` |
-
-```bash
-docker pull liqinye27/alpha-forecast-efa:20260718
-docker pull liqinye27/alpha-embedder-faiss-gpu:20260708
-```
-
-Use Linux x86-64 with NVIDIA drivers and NVIDIA Container Toolkit. Mount the
-repository and external assets into the containers. Multi-node EFA training
-requires compatible host devices and networking; Compute requires Linux
-namespace isolation to be available inside the worker containers.
-
-Install this checkout inside the training environment while preserving its
-existing dependencies:
-
-```bash
-python -m pip install --no-deps -e ./strands-env -e .
-python -m pip check
-```
-
-For a custom environment, use Python 3.10+ and install with
-`python -m pip install -e ./strands-env -e .`. Training also requires compatible
-Slime, Megatron-LM, Ray, PyTorch, and SGLang installations.
-
-<details>
-<summary>Image digests for reproducible deployments</summary>
-
-Use these references in place of the tags to pin the exact images:
-
-```text
-liqinye27/alpha-forecast-efa@sha256:7b72bfdba690fcc996553c497259c0b314de77c1a1d39c82e1697ecb0f7ca950
-liqinye27/alpha-embedder-faiss-gpu@sha256:7137db0bd69be46d07eb217c29f61fc0955559ea4ad7fb891d03cec15ed86314
-```
-
-</details>
-
 ## Training
 
-Start the embedding service in its container:
+Start the embedding service:
 
 ```bash
 HOST=0.0.0.0 EMBEDDING_MODEL_PATH=/models/Qwen3-Embedding-8B \
