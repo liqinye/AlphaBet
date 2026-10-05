@@ -1,0 +1,31 @@
+# Edit paths for your local Forecast-Dojo split and matching model server.
+model:
+  name: glm-4.5-air
+  backend: sglang
+  model_id: zai-org/GLM-4.5-Air
+  tokenizer_path: zai-org/GLM-4.5-Air
+  base_url: http://localhost:30000
+  tool_parser: glm
+  sampling_params:
+    max_new_tokens: 32768
+    temperature: 0.6
+    top_p: 1.0
+    top_k: -1
+env:
+  index_root: /indexes/faiss_index_monthly
+  mode: memory-on
+  search: true
+  enable_code: true
+  embedding_endpoint: http://localhost:8001/v1
+  embedding_model: Qwen3-Embedding-8B
+  max_tool_iters: 80
+  max_tool_calls: 200
+data:
+  questions_path: /datasets/memory-on/forecast_test.jsonl
+  split: test
+output_path: outputs/memory-on.jsonl
+concurrency: 8
+n_rollouts: 4
+reward_metric: brier
+format_coef: 1.0
+keep_trace: true

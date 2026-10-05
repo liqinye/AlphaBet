@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "alphabet-forecasting"
+version = "0.1.0.dev0"
+description = "Reinforcement learning for LLM event forecasting agents"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "strands-env==0.1.0+alphabet",
+    "strands-sglang>=0.4.1",
+    "faiss-cpu",
+    "numpy",
+    "openai",
+    "pandas",
+    "pyarrow",
+    "pydantic>=2",
+    "PyYAML",
+    "scipy",
+    "tiktoken",
+]
+
+[project.scripts]
+alphabet-eval = "evaluation.run:main"
+alphabet-build-data = "data.build_dataset:main"
+alphabet-build-single-date = "data.build_single_date:main"
+
+[tool.setuptools.package-dir]
+"" = "src"
+"prompts" = "prompts"
+
+[tool.setuptools.packages.find]
+where = ["src", "."]
+include = ["data*", "environment*", "training*", "evaluation*", "prompts"]
+namespaces = false
+
+[tool.setuptools.package-data]
+"prompts" = ["*.md"]

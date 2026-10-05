@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "strands-env"
+version = "0.1.0+alphabet"
+description = "Shared environment runtime for AlphaBet"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+dependencies = [
+    "strands-sglang>=0.4.1",
+    "strands-agents[openai]",
+    "boto3",
+    "httpx",
+    "openai",
+    "pydantic>=2",
+    "typing_extensions",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["strands_env*"]
